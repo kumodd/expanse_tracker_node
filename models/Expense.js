@@ -1,3 +1,4 @@
+// models/Expense.js
 const mongoose = require('mongoose');
 
 const ExpenseSchema = new mongoose.Schema({
@@ -34,6 +35,11 @@ const ExpenseSchema = new mongoose.Schema({
   description: {
     type: String,
     maxlength: [200, 'Description cannot be more than 200 characters']
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   createdAt: {
     type: Date,
