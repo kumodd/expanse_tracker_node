@@ -5,7 +5,7 @@
     "description": "API documentation for Auth & Expense management",
     "version": "1.0.0"
   },
-  "host": "localhost:5500",
+  "host": "https://expense-tracker-mf0f.onrender.com/",
   "basePath": "/api",
   "schemes": [
     "http"

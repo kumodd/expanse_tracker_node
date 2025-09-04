@@ -6,7 +6,7 @@ const doc = {
     title: "Expense Tracker API",
     description: "API documentation for Auth & Expense management",
   },
-  host: "localhost:5500", // change for production
+  host: "https://expense-tracker-mf0f.onrender.com/", // change for production
   schemes: ["http"],
   basePath: "/api",
   securityDefinitions: {
