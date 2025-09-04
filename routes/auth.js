@@ -5,7 +5,9 @@ const { generateOTP, generateOTPExpiry, verifyOTP } = require('../utils/otpGener
 const { generateToken } = require('../utils/jwt');
 const { body, validationResult } = require('express-validator');
 
+
 const router = express.Router();
+
 
 // Request OTP
 router.post('/request-otp', [
@@ -15,6 +17,13 @@ router.post('/request-otp', [
         .notEmpty()
         .withMessage('Name is required')
 ], async (req, res) => {
+    
+/* 
+    #swagger.tags = ['Auth']
+    #swagger.description = 'Request OTP for login/registration'
+    #swagger.path = '/auth/request-otp'
+  */
+  
     try {
         // Check for validation errors
         const errors = validationResult(req);
@@ -102,6 +111,11 @@ router.post('/verify-otp', [
     body('phone').isMobilePhone().withMessage('Valid phone number is required'),
     body('otp').isLength({ min: 6, max: 6 }).withMessage('OTP must be 6 digits')
 ], async (req, res) => {
+     /* 
+    #swagger.tags = ['Auth']
+    #swagger.description = 'Verify otp for authentication'
+    #swagger.path = '/auth/verify-otp'
+  */
     try {
         // Check for validation errors
         const errors = validationResult(req);

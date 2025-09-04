@@ -6,8 +6,12 @@ const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
 const expenseRoutes = require('./routes/expenses');
 
+// ✅ Swagger imports
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
+
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 
 // Connect to MongoDB
 connectDB(process.env.URI);
@@ -16,19 +20,15 @@ connectDB(process.env.URI);
 app.use(cors());
 app.use(express.json());
 
+// ✅ Swagger Docs (MUST be before other routes sometimes)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
-// Handle 404 errors
-// app.use('*', (req, res) => {
-//   res.status(404).json({
-//     success: false,
-//     message: "API endpoint not found"
-//   });
-// });
-
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📑 API Docs available at http://localhost:${PORT}/api-docs`);
 });
