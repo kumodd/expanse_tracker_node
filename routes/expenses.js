@@ -266,7 +266,7 @@ router.get('/summary/category', async (req, res) => {
     /* 
 #swagger.tags = ['Expenses']
 #swagger.description = 'Get expenses summary by category'
-#swagger.path = '/expenses'
+#swagger.path = '/expenses/summary/category'
 */
     try {
         const categorySummary = await Expense.aggregate([
@@ -303,7 +303,7 @@ router.get('/summary/monthly', async (req, res) => {
     /* 
 #swagger.tags = ['Expenses']
 #swagger.description = 'Get monthly expenses summary '
-#swagger.path = '/expenses'
+#swagger.path = '/expenses/summary/monthly'
 */
     try {
         const monthlySummary = await Expense.aggregate([
@@ -351,7 +351,7 @@ router.get('/summary/period', async (req, res) => {
     /* 
 #swagger.tags = ['Expenses']
 #swagger.description = 'Get expenses for a specific period '
-#swagger.path = '/expenses'
+#swagger.path = '/expenses/summary/period'
 */
     try {
         const { startDate, endDate } = req.query;
