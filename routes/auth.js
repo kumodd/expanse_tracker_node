@@ -9,7 +9,11 @@ const router = express.Router();
 
 // Request OTP
 router.post('/request-otp', [
-    body('phone').isMobilePhone().withMessage('Valid phone number is required')
+    body('phone').isMobilePhone().withMessage('Valid phone number is required'),
+    body('name')
+        .trim()
+        .notEmpty()
+        .withMessage('Name is required')
 ], async (req, res) => {
     try {
         // Check for validation errors
@@ -22,7 +26,7 @@ router.post('/request-otp', [
             });
         }
 
-        const { phone } = req.body;
+        const { phone, name } = req.body;
 
         // Generate OTP
         const otpCode = generateOTP();
@@ -33,17 +37,23 @@ router.post('/request-otp', [
 
         if (!user) {
             user = await User.create({
+                 name,
                 phone,
                 otp: {
                     code: otpCode,
                     expiresAt: otpExpiry
-                }
+                },
+
             });
         } else {
             user.otp = {
                 code: otpCode,
                 expiresAt: otpExpiry
             };
+            // Optionally update name if provided
+            if (name) {
+                user.name = name;
+            }
             await user.save();
         }
 
@@ -67,7 +77,7 @@ router.post('/request-otp', [
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
 
-            console.log(body);
+            console.log(response);
         });
 
         res.status(200).json({
@@ -155,8 +165,6 @@ router.post('/verify-otp', [
 // Get current user
 router.get('/me', async (req, res) => {
     try {
-        // This would typically be protected by the protect middleware
-        // For now, we'll get user from token in header
         const token = req.headers.authorization?.split(' ')[1];
 
         if (!token) {
@@ -168,7 +176,8 @@ router.get('/me', async (req, res) => {
 
         const jwt = require('jsonwebtoken');
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.id).select('-otp');
+
+        const user = await User.findById(decoded.id);
 
         if (!user) {
             return res.status(404).json({
