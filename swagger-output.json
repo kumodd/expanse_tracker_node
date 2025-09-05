@@ -5,7 +5,7 @@
     "description": "API documentation for Auth & Expense management",
     "version": "1.0.0"
   },
-  "host": "https://expense-tracker-mf0f.onrender.com/",
+  "host": "https://expense-tracker-mf0f.onrender.com",
   "basePath": "/api",
   "schemes": [
     "http"
@@ -122,21 +122,11 @@
         "tags": [
           "Expenses"
         ],
-        "description": "Get expenses for a specific period ",
+        "description": "Get a specific expense",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "startDate",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "endDate",
-            "in": "query",
             "type": "string"
           }
         ],
@@ -144,11 +134,11 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -281,6 +271,97 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expenses/summary/category": {
+      "get": {
+        "tags": [
+          "Expenses"
+        ],
+        "description": "Get expenses summary by category",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expenses/summary/monthly": {
+      "get": {
+        "tags": [
+          "Expenses"
+        ],
+        "description": "Get monthly expenses summary ",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expenses/summary/period": {
+      "get": {
+        "tags": [
+          "Expenses"
+        ],
+        "description": "Get expenses for a specific period ",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
