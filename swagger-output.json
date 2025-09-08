@@ -5,10 +5,10 @@
     "description": "API documentation for Auth & Expense management",
     "version": "1.0.0"
   },
-  "host": "https://expense-tracker-mf0f.onrender.com",
+  "host": "expense-tracker-mf0f.onrender.com",
   "basePath": "/api",
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
     "bearerAuth": {
